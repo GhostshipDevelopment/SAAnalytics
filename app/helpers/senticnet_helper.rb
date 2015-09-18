@@ -26,6 +26,8 @@ module SenticnetHelper
         end
         # worker = SenticnetDataWorker.new
         # worker.perform_async(text, polarity)
+        puts "Submitting: #{text}"
+        sleep(0.5)
         SenticnetDataWorker.perform_async(text, polarity)
       end
     end
