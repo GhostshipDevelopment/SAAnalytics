@@ -8,6 +8,7 @@ gem 'sinatra', :require => nil
 gem 'pg'
 gem 'neo4j', '~> 5.0.0'
 gem 'sidekiq'
+gem 'foreman'
 gem 'rdf-rdfxml'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

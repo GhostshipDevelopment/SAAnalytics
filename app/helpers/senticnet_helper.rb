@@ -8,8 +8,8 @@ module SenticnetHelper
     root_node.children.each do |concept_node|
       #skip the blank elements
       next if concept_node.class == REXML::Text
-      text = ""
-      polarity = 0
+      text = nil
+      polarity = nil
       concept_node.children.each do |concept_child|
         #skip blank elements
         next if concept_child.class == REXML::Text
@@ -24,11 +24,14 @@ module SenticnetHelper
         elsif concept_child.name == "polarity"
           polarity = concept_child.text.to_f
         end
-        # worker = SenticnetDataWorker.new
-        # worker.perform_async(text, polarity)
-        puts "Submitting: #{text}"
-        sleep(0.5)
-        SenticnetDataWorker.perform_async(text, polarity)
+
+        if !text.nil? && !polarity.nil?
+          puts "Loading: #{text} with polarity: #{polarity.to_s}"
+          SenticnetDataWorker.perform_async(text, polarity)
+          text = nil
+          polarity = nil
+        end
+
       end
     end
     return true
