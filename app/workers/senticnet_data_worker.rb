@@ -18,10 +18,13 @@ class SenticnetDataWorker
       return true
     end
 
+    #initialize the mutation of text
+    mut_text = split_text
     (split_text.length).times do |mutation_index|
-      mut_text = split_text[(mutation_index + 1)..split_text.length - 2]
+      mut_text = split_text[(mutation_index + 1)..-1]
+      logger.info "Mutation: #{mut_text.to_s}"
       mut_attributes = {
-        text: mut_text,
+        text: mut_text.join(" "),
         text_length: mut_text.length,
         word_count: split_text.length - mutation_index
       }
