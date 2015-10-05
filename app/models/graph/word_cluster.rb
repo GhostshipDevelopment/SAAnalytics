@@ -14,7 +14,8 @@ module Graph
     property :polarity, type: Float, default: 0.0
     property :average_node_polarity, type: Float, default: 0.0
 
-    validates :length, presence: true
+    validates :text, presence: true
+    validates :text_length, presence: true
     validates :word_count, presence: true
 
     def find_or_create(attributes)
@@ -24,6 +25,13 @@ module Graph
       else
         result = self.create(attributes)
       end
+    end
+
+    def set_attributes(attributes)
+      attributes.each do |key, value|
+        self[key] = value
+      end
+      self.save
     end
   end
 end

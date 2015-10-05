@@ -28,8 +28,16 @@ class SenticnetDataWorker
         text_length: mut_text.length,
         word_count: split_text.length - mutation_index
       }
+      #dont enter a blank space
+      if mut_attributes[:text] == ""
+        break
+      end
       #find or create the node
       sub_node = Graph::WordCluster.find_or_create(mut_attributes)
+
+      #update the node's attributes, we dont know if we loaded it or not, so just
+      #update attributes
+      sub_node.set_attributes(mut_attributes)
       #associate the previous node as being the master node
       previous_node.slave_clusters << sub_node
       #make the previous node the current sub node to continue association
