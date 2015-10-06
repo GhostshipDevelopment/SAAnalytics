@@ -21,7 +21,7 @@ class SenticnetDataWorker
     #initialize the mutation of text
     mut_text = split_text
     (split_text.length).times do |mutation_index|
-      mut_text = split_text[(mutation_index + 1)..-1]
+      mut_text = split_text[0..mutation_index]
       logger.info "Mutation: #{mut_text.to_s}"
       mut_attributes = {
         text: mut_text.join(" "),
