@@ -28,7 +28,7 @@ module SenticnetHelper
         if !text.nil? && !polarity.nil?
           sleep(0.5)
           puts "Loading: #{text}\tPolarity: #{polarity.to_s}"
-          SenticnetDataWorker.perform_async(text, polarity)
+          SenticnetDataWorker.new.perform(text, polarity)
           text = nil
           polarity = nil
         end
